@@ -1,0 +1,5 @@
+<% if user_signed_in? %>
+  <p>Olá, <%= current_user.email %>!</p>
+<% else %>
+  <p>Bem-vindo, visitante! <a href="<%= new_user_session_path %>">Faça login</a> para acessar mais recursos.</p>
+<% end %>
