@@ -26,8 +26,8 @@ class RoomsController < ApplicationController
     @is_admin = @room.creator == current_user
   end
   
-  def show_by_code
-    @room = Room.find_by(code: params[:code])
+  def show_by_code(code = params[:code])
+    @room = Room.find_by(code: code)
     if @room
       @is_admin = @room.creator == current_user
       render :show
@@ -35,21 +35,6 @@ class RoomsController < ApplicationController
       flash[:alert] = 'Sala não encontrada'
       redirect_to root_path
     end
-    
-  def configure_deck
-    @room = Room.find(params[:id])
-    if @room.creator == current_user
-      if @room.deck.nil?
-        @room.create_deck(cards: params[:deck])
-      else
-        @room.deck.update(cards: params[:deck])
-      end
-      redirect_to @room, notice: "Deck configurado com sucesso!"
-    else
-      redirect_to @room, alert: "Apenas o administrador pode configurar o deck."
-    end
-  end
-    
   end
   
   private

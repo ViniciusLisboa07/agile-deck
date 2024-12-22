@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   devise_for :users
   
   resources :rooms, only: [:new, :create, :show] do
-    post :configure_deck, on: :member
+    resources :decks, only: [:new, :create, :edit, :update], shallow: true
   end
+  
   get 'rooms/code/:code', to: 'rooms#show_by_code', as: :show_by_code
 end

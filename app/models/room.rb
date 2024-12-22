@@ -8,6 +8,10 @@ class Room < ApplicationRecord
   
   before_validation :generate_unique_code, on: :create
   
+  def build_deck(deck_params)
+    self.deck = Deck.new(deck_params)
+  end
+
   private
   
   def generate_unique_code

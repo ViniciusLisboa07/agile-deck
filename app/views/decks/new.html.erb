@@ -1,0 +1,23 @@
+<div class="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+  <h1 class="text-3xl font-bold text-blue-600 mb-4">Configurar Deck para <%= @room.name %></h1>
+
+  <%= form_with model: @deck, url: room_decks_path(@room), method: :post, local: true, class: "w-full max-w-md" do |f| %>
+    <div class="mb-4">
+      <label for="name" class="block text-gray-700 font-medium mb-2">Nome do Deck:</label>
+      <%= f.text_field :name, 
+                         placeholder: "Ex.: Planning Poker", 
+                         class: "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" %>
+      <label for="cards" class="block text-gray-700 font-medium mb-2">Cartas (separadas por vírgulas):</label>
+      <%= f.text_field :cards, 
+                       placeholder: "Ex.: 1, 2, 3, 5, 8, 13", 
+                       class: "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" %>
+    </div>
+
+    <div class="flex justify-between">
+      <%= f.submit 'Salvar Deck', 
+                   class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700" %>
+      <%= link_to 'Cancelar', room_path(@room), 
+                    class: "text-gray-600 underline" %>
+    </div>
+  <% end %>
+</div>
