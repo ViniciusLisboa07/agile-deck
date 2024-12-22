@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   root "home#index", as: :home
   devise_for :users
   
-  resources :rooms, only: %i[index create]
+  resources :rooms, only: %i[new index create]
   get 'rooms/code/:code', to: 'rooms#show_by_code', as: :room_by_code
 end
