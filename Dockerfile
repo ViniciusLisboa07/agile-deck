@@ -1,39 +1,44 @@
 # Dockerfile
 FROM ruby:3.2
 
-# Define environment variables for Docker
+# Define environment variables para Docker
 ENV RAILS_ENV=development \
     NODE_ENV=development
 
-# Install system dependencies
+# Instalar dependências de sistema
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
     libpq-dev \
     nodejs \
-    yarn \
+    curl \
     postgresql-client \
     vim
 
-# Set working directory in container
+# Instalar Yarn e npm
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g yarn
+
+# Definir o diretório de trabalho no container
 WORKDIR /app
 
-# Install bundler
+# Instalar bundler
 RUN gem install bundler
 
-# Copy Gemfile and Gemfile.lock
+# Copiar Gemfile e Gemfile.lock
 COPY Gemfile Gemfile.lock ./
 
-# Install gems
+# Instalar gems
 RUN bundle install
 
-# Copy application code to container
+# Copiar código da aplicação para o container
 COPY . ./
 
-# Precompile assets for production (optional)
+# Precompilar assets para produção (opcional)
 RUN bundle exec rails assets:precompile
 
-# Expose port for Rails server
+# Expor a porta para o servidor Rails
 EXPOSE 3000
 
-# Start Rails server
+# Iniciar o servidor Rails
 CMD ["bin/rails", "server", "-b", "0.0.0.0"]

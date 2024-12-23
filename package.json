@@ -2,9 +2,14 @@
   "name": "agile_deck",
   "private": true,
   "dependencies": {
-    "esbuild": "^0.19.0",
-    "tailwindcss": "^3.3.0",
     "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0"
+    "daisyui": "^4.12.22",
+    "esbuild": "^0.19.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.3.0"
+  },
+  "scripts": {
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --config ./config/tailwind.config.js --minify",
+    "watch:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --config ./config/tailwind.config.js --watch"
   }
 }
