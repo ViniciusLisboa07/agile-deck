@@ -6,7 +6,7 @@ class DecksController < ApplicationController
   end
 
   def create
-    puts deck_params[:cards_as_array]
+    puts deck_params
     @deck = @room.build_deck(deck_params)
 
     if @deck.save
@@ -37,6 +37,6 @@ class DecksController < ApplicationController
   end
 
   def deck_params
-    params.require(:deck).permit(:name, cards: [])
+    params.require(:deck).permit(:name, :cards)
   end
 end

@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   root "home#index", as: :home
   devise_for :users
   
+  get '/choose_authentication', to: 'users#choose_authentication', as: :choose_authentication
+  post '/anonymous_login', to: 'users#anonymous_login', as: :anonymous_login
+  
   resources :rooms, only: [:new, :create, :show] do
     resources :decks, only: [:new, :create, :edit, :update], shallow: true
   end

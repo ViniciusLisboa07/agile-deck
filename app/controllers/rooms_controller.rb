@@ -1,5 +1,4 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!
   
   def new
     @room = Room.new
@@ -15,7 +14,7 @@ class RoomsController < ApplicationController
     @room = current_user.rooms.new(room_params)
     
     if @room.save
-      render json: @room, status: :created
+      redirect_to room_path(@room)
     else
       render json: @room.errors, status: :unprocessable_entity
     end
@@ -33,7 +32,7 @@ class RoomsController < ApplicationController
       render :show
     else
       flash[:alert] = 'Sala não encontrada'
-      redirect_to root_path
+      redirect_to home_path
     end
   end
   

@@ -1,18 +1,15 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
-
-  before_action :authenticate_user!
+  before_action :ensure_authentication
   
   helper_method :current_user, :user_signed_in?
-  
+
   private
-  
-  def authenticate_user!
-    if current_user.nil?
-      sign_in(User.create_anonymous_user)
-    else
-      super
-    end
+
+  def ensure_authentication
+    return if devise_controller?
+
+    return if user_signed_in? || session[:anonymous_user]
+
+    redirect_to choose_authentication_path
   end
 end
