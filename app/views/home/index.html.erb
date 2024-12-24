@@ -1,23 +1,102 @@
-<div class="flex items-center justify-center min-h-screen">
-    <% if user_signed_in? %>
-    <div class="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
-        <h1 class="text-4xl font-bold text-blue-600 mb-4">Agile Deck</h1>
-        <p class="text-lg text-gray-700 mb-6">Monte salas e vote suas estimativas</p>
-    
-        <a href="<%= new_room_path %>"><p>Crie sua Sala aqui</p></a>
-        
-        <h1 class="text-2xl font-semibold text-gray-800">Olá, <%= current_user.email %>!</h1>
-        <p class="mt-4">
-        <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-        </p>
-        <button class="btn btn-primary">Clique aqui</button>
+<div class="min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <div class="navbar bg-base-100">
+    <div class="navbar-start">
+      <div class="dropdown">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h7" />
+          </svg>
+        </div>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+          <li><a>Homepage</a></li>
+          <li><a>Rooms</a></li>
+        </ul>
+      </div>
     </div>
-    <% else %>
-    <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-        <p class="text-lg text-gray-700">
-        Bem-vindo, visitante! 
-        <a href="<%= new_user_session_path %>" class="text-blue-500 hover:text-blue-700 font-medium">Faça login</a> para acessar mais recursos.
-        </p>
+    <div class="navbar-center">
+      <a class="btn btn-ghost text-xl">Agile Deck</a>
     </div>
-    <% end %>
+    <div class="navbar-end">
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero bg-base-200 min-h-screen">
+    <div class="hero-content flex-col lg:flex-row">
+      <img
+        src=""
+        class="max-w-sm rounded-lg shadow-2xl" />
+      <div>
+        <h1 class="text-5xl font-bold">Agile Deck!</h1>
+        <p class="py-6">
+          Monte salas, vote suas estimativas e simplifique o planejamento da sua equipe.
+        </p>
+        <%= link_to "Criar Nova Sala", new_room_path, class: "btn btn-primary text-lg font-semibold" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto py-12 px-6">
+    <!-- Minhas Salas -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4">Minhas Salas</h2>
+      <% if @rooms.any? %>
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% @rooms.each do |room| %>
+            <li class="p-4 bg-white shadow-md rounded-lg">
+              <h3 class="text-lg font-semibold text-blue-600"><%= room.name %></h3>
+              <p class="text-gray-600">Criada em: <%= room.created_at.strftime("%d/%m/%Y") %></p>
+              <%= link_to "Entrar", room_path(room), class: "btn btn-sm btn-primary mt-4" %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-gray-700">Você ainda não tem nenhuma sala. <%= link_to "Crie uma agora", new_room_path, class: "text-blue-500 underline" %>.</p>
+      <% end %>
+    </section>
+
+    <!-- Como Funciona -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Como Funciona?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-4 bg-gray-100 rounded-lg shadow">
+          <h3 class="font-semibold text-lg text-blue-600 mb-2">1. Crie uma Sala</h3>
+          <p class="text-gray-700">Inicie o processo criando uma sala e convidando sua equipe para participar.</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg shadow">
+          <h3 class="font-semibold text-lg text-blue-600 mb-2">2. Vote</h3>
+          <p class="text-gray-700">Cada membro da equipe pode votar anonimamente em suas estimativas.</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg shadow">
+          <h3 class="font-semibold text-lg text-blue-600 mb-2">3. Revele e Decida</h3>
+          <p class="text-gray-700">Revele os votos, discuta as diferenças e chegue a um consenso.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-blue-600 text-white py-6">
+    <div class="container mx-auto text-center">
+      <p>&copy; <%= Time.now.year %> Agile Deck. Todos os direitos reservados.</p>
+      <ul class="flex justify-center gap-4 mt-4">
+        <li><%= link_to "Política de Privacidade", "#", class: "hover:text-gray-300" %></li>
+        <li><%= link_to "Termos de Uso", "#", class: "hover:text-gray-300" %></li>
+        <li><%= link_to "Contato", "#", class: "hover:text-gray-300" %></li>
+      </ul>
+    </div>
+  </footer>
 </div>
