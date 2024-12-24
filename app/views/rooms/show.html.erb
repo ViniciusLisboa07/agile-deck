@@ -6,23 +6,31 @@
           class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700" %>
     <% end %>
 
-    <section class="relative flex flex-col items-center justify-center w-full max-w-4xl h-96 bg-gray-200 rounded-lg shadow-lg">
-      <% [User.first, User.last].each_with_index do |user, index| %>
+    <section class="flex items-center justify-center w-full h-[500px] bg-gray-200 rounded-lg shadow-lg overflow-hidden">
+      <% @room.users.each_with_index do |user, index| %>
+        <% # Gera posições aleatórias %>
+        <% random_x = rand(10..90) %>
+        <% random_y = rand(10..90) %>
+
         <div 
-          class="absolute flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full shadow-md"
-          style="top: <%= 50 + Math.sin(index * Math::PI) * 40 %>%; 
-                 left: <%= 50 + Math.cos(index * Math::PI) * 40 %>%;">
-          <p class="text-sm font-bold text-center"><%= user.email.split('@').first %></p>
+          class="flex flex-col items-center text-center transition-transform duration-500 p-4"
+          style="top: <%= random_y %>%; left: <%= random_x %>%;">
+          <div class="card w-16 h-24 bg-blue-500 text-white rounded-lg p-4 shadow-xl">
+            <p class="text-sm font-bold">?</p>
+          </div>
+          <p class="text-xs font-medium text-gray-800"><%= user.name || user.email %></p>
         </div>
       <% end %>
-
-      <button 
-        class="absolute bg-blue-600 text-white text-lg font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700">
-        Revelar Votos
-      </button>
     </section>
   </main>
-
+  
+  <div class="flex justify-center gap-4">
+      <button 
+        class="btn btn-md  btn-primary">
+            Revelar Votos
+      </button>
+  </div>
+  
   <footer class="w-full bg-gray-100 py-6">
     <section class="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
       <div class="flex justify-center gap-4">
