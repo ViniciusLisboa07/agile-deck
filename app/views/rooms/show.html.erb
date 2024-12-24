@@ -1,19 +1,39 @@
-<div class="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
-  <h1 class="text-4xl font-bold text-blue-600 mb-4">Sala: <%= @room.name %></h1>
+<div class="flex flex-col min-h-screen bg-gray-100">
+  <main class="flex-grow flex flex-col items-center justify-center px-4">
+    <% if !@room.deck.present? %>
+      <p class="text-lg text-gray-700 mb-6">Nenhum deck configurado ainda.</p>
+      <%= link_to 'Configurar Deck', new_room_deck_path(room_id: @room.id), 
+          class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700" %>
+    <% end %>
 
-  <% if @room.deck.present? %>
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Deck Atual:</h2>
-    <div class="bg-white shadow rounded-lg p-4">
-      <% @room.deck.cards_as_array.each do |card| %>
-        <span class="inline-block bg-blue-200 text-blue-800 text-sm font-medium py-1 px-3 rounded-full m-1">
-          <%= card %>
-        </span>
+    <section class="relative flex flex-col items-center justify-center w-full max-w-4xl h-96 bg-gray-200 rounded-lg shadow-lg">
+      <% [User.first, User.last].each_with_index do |user, index| %>
+        <div 
+          class="absolute flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full shadow-md"
+          style="top: <%= 50 + Math.sin(index * Math::PI) * 40 %>%; 
+                 left: <%= 50 + Math.cos(index * Math::PI) * 40 %>%;">
+          <p class="text-sm font-bold text-center"><%= user.email.split('@').first %></p>
+        </div>
       <% end %>
-    </div>
-  <% else %>
-    <p class="text-lg text-gray-700 mb-6">Nenhum deck configurado ainda.</p>
-    <%= link_to 'Configurar Deck', new_room_deck_path(room_id: @room.id), 
-        class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700" %>
-  <% end %>
 
+      <button 
+        class="absolute bg-blue-600 text-white text-lg font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700">
+        Revelar Votos
+      </button>
+    </section>
+  </main>
+
+  <footer class="w-full bg-gray-100 py-6">
+    <section class="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+      <div class="flex justify-center gap-4">
+        <% @room.deck.cards_as_array.each do |card| %>
+          <div class="card bg-base-100 rounded-lg p-2 shadow-xl">
+              <div class="card-body">
+                  <h1 class="font-bold text-blue-600 text-center"><%= card %></h1>
+              </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </footer>
 </div>
