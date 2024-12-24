@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_23_182820) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_24_190447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -21,6 +21,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_23_182820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_decks_on_room_id"
+  end
+
+  create_table "room_users", force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "joined_at"
+    t.index ["room_id", "user_id"], name: "index_room_users_on_room_id_and_user_id", unique: true
+    t.index ["room_id"], name: "index_room_users_on_room_id"
+    t.index ["user_id"], name: "index_room_users_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -66,6 +77,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_23_182820) do
   end
 
   add_foreign_key "decks", "rooms"
+  add_foreign_key "room_users", "rooms"
+  add_foreign_key "room_users", "users"
   add_foreign_key "rooms", "users"
   add_foreign_key "rounds", "rooms"
   add_foreign_key "votes", "rounds"

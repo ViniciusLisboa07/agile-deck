@@ -3,6 +3,9 @@ class Room < ApplicationRecord
 
   has_one :deck, dependent: :destroy
 
+  has_many :room_users, dependent: :destroy
+  has_many :users, through: :room_users
+  
   validates :name, presence: true, uniqueness: true
   validates :creator, presence: true
   

@@ -28,6 +28,12 @@ class RoomsController < ApplicationController
   def show_by_code(code = params[:code])
     @room = Room.find_by(code: code)
     if @room
+
+      unless @room.users.include?(current_user)
+        @room.room_users.create(user: current_user, joined_at: Time.current)
+        flash[:notice] = "Bem-vindo à sala #{@room.name}!" unless @room.users.include?(current_user)
+      end
+
       @is_admin = @room.creator == current_user
       render :show
     else

@@ -3,6 +3,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   has_many :rooms, foreign_key: 'user_id', dependent: :destroy
+  has_many :room_users, dependent: :destroy
+  has_many :participated_rooms, through: :room_users, source: :room
   
   def anonymous?
     self.anonymous
