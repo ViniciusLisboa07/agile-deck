@@ -8,7 +8,6 @@
 
     <section class="flex items-center justify-center w-full h-[500px] bg-gray-200 rounded-lg shadow-lg overflow-hidden">
       <% @room.users.each_with_index do |user, index| %>
-        <% # Gera posições aleatórias %>
         <% random_x = rand(10..90) %>
         <% random_y = rand(10..90) %>
 
@@ -32,16 +31,28 @@
   </div>
   
   <footer class="w-full bg-gray-100 py-6">
-    <section class="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
-      <div class="flex justify-center gap-4">
-        <% @room.deck.cards_as_array.each do |card| %>
-          <div class="card bg-base-100 rounded-lg p-2 shadow-xl">
-              <div class="card-body">
-                  <h1 class="font-bold text-blue-600 text-center"><%= card %></h1>
-              </div>
-          </div>
-        <% end %>
-      </div>
+    <section 
+        data-controller="voting" 
+        data-voting-room-id="<%= @room.id %>"
+    >
+        <div class="flex justify-center gap-4">
+            <% @room.deck.cards_as_array.each do |card| %>
+                <div 
+                    class="btn card bg-base-100 rounded-lg p-4 shadow-xl cursor-pointer"
+                    data-card="<%= card %>"
+                    data-round-id="<%= @round.id %>"
+                    data-action="click->voting#selectCard"
+                >
+                    <div class="card-body">
+                    <h1 class="font-bold text-blue-600 text-center"><%= card %></h1>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+        
+        <div data-voting-target="results" class="mt-4">
+            <!-- Resultados aparecerão aqui -->
+        </div>
     </section>
   </footer>
 </div>

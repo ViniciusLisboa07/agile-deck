@@ -12,6 +12,7 @@ class RoomsController < ApplicationController
   
   def create
     @room = current_user.rooms.new(room_params)
+    @round = @room.rounds.create(status: 'waiting')
     
     if @room.save
       redirect_to room_path(@room)
@@ -22,6 +23,7 @@ class RoomsController < ApplicationController
   
   def show
     @room = Room.find(params[:id])
+    @round = @room.rounds.last
     @is_admin = @room.creator == current_user
   end
   
@@ -34,6 +36,7 @@ class RoomsController < ApplicationController
         flash[:notice] = "Bem-vindo à sala #{@room.name}!" unless @room.users.include?(current_user)
       end
 
+      @round = @room.rounds.last
       @is_admin = @room.creator == current_user
       render :show
     else

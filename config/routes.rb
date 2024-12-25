@@ -19,4 +19,8 @@ Rails.application.routes.draw do
   end
   
   get 'rooms/code/:code', to: 'rooms#show_by_code', as: :show_by_code
+  
+  resources :rounds do
+    resources :vote, only: [:create]
+  end
 end
