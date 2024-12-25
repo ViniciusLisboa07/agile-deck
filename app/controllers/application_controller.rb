@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :ensure_authentication
-  
+
   helper_method :current_user, :user_signed_in?
 
   private

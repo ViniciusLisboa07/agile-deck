@@ -10,17 +10,17 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index", as: :home
   devise_for :users
-  
-  get '/choose_authentication', to: 'users#choose_authentication', as: :choose_authentication
-  post '/anonymous_login', to: 'users#anonymous_login', as: :anonymous_login
-  
-  resources :rooms, only: [:new, :create, :show] do
-    resources :decks, only: [:new, :create, :edit, :update], shallow: true
+
+  get "/choose_authentication", to: "users#choose_authentication", as: :choose_authentication
+  post "/anonymous_login", to: "users#anonymous_login", as: :anonymous_login
+
+  resources :rooms, only: [ :new, :create, :show ] do
+    resources :decks, only: [ :new, :create, :edit, :update ], shallow: true
   end
-  
-  get 'rooms/code/:code', to: 'rooms#show_by_code', as: :show_by_code
-  
+
+  get "rooms/code/:code", to: "rooms#show_by_code", as: :show_by_code
+
   resources :rounds do
-    resources :vote, only: [:create]
+    resources :vote, only: [ :create ]
   end
 end
