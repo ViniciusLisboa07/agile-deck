@@ -6,16 +6,17 @@
           class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700" %>
     <% end %>
 
-    <section class="flex items-center justify-center w-full h-[500px] bg-gray-200 rounded-lg shadow-lg overflow-hidden">
+    <section class="user-list flex items-center justify-center w-full h-[500px] bg-gray-200 rounded-lg shadow-lg overflow-hidden">
       <% @room.users.each_with_index do |user, index| %>
         <% random_x = rand(10..90) %>
         <% random_y = rand(10..90) %>
 
         <div 
+          id="user-<%= user.id %>" 
           class="flex flex-col items-center text-center transition-transform duration-500 p-4"
           style="top: <%= random_y %>%; left: <%= random_x %>%;">
-          <div class="card w-16 h-24 bg-blue-500 text-white rounded-lg p-4 shadow-xl">
-            <p class="text-sm font-bold">?</p>
+          <div class="card w-16 h-24 bg-blue-500 text-white items-center text-center justify-center rounded-lg p-4 shadow-xl">
+            <p class="text-lg font-bold">?</p>
           </div>
           <p class="text-xs font-medium text-gray-800"><%= user.name || user.email %></p>
         </div>
