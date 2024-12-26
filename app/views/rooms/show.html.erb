@@ -12,7 +12,7 @@
         <% random_y = rand(10..90) %>
 
         <div 
-          id="user-<%= user.id %>" 
+          data-user-id="user-<%= user.id %>" 
           class="flex flex-col items-center text-center transition-transform duration-500 p-4"
           style="top: <%= random_y %>%; left: <%= random_x %>%;">
           <div class="card w-16 h-24 bg-blue-500 text-white items-center text-center justify-center rounded-lg p-4 shadow-xl">
@@ -32,9 +32,11 @@
   </div>
   
   <footer class="w-full bg-gray-100 py-6">
+    <meta name="room-id" content="<%= @room.id %>">
+
     <section 
         data-controller="voting" 
-        data-voting-room-id="<%= @room.id %>"
+        data-room-id="<%= @room.id %>"
     >
         <div class="flex justify-center gap-4">
             <% @room.deck.cards_as_array.each do |card| %>
@@ -51,8 +53,9 @@
             <% end %>
         </div>
         
-        <div data-voting-target="results" class="mt-4">
-            <!-- Resultados aparecerão aqui -->
+        <div data-controller="voting">
+          asdasdsad
+          <div data-voting-target="results"></div>
         </div>
     </section>
   </footer>

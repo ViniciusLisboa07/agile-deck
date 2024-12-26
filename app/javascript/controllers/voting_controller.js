@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["card", "results"];
 
   connect() {
-    console.log("VotingController connected");
+    console.log("VotingController connected", this.element);
   }
 
   selectCard(event) {
@@ -26,9 +26,12 @@ export default class extends Controller {
   }
 
   receiveVote(data) {
+    console.log("asdasdasdqweqwe")
+    console.log(data)
     const { user_id, value } = data;
 
-    // Atualizar a interface para mostrar o voto recebido
-    this.resultsTarget.innerHTML += `<p>Usuário ${user_id} votou: ${value}</p>`;
+    let voteElement = document.querySelector(`[data-voting-target="results"]`).textContent = `Usuário ${user_id}: ${value}`;
+
+    console.log("Received vote:", user_id, value);
   }
 }
