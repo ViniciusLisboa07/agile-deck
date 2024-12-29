@@ -8,12 +8,8 @@ export default class extends Controller {
   }
 
   selectCard(event) {
-    console.log("Card selected", event.currentTarget.dataset.card);
     const cardValue = event.currentTarget.dataset.card;
     const roundId = event.currentTarget.dataset.roundId;
-    
-    console.log(event.currentTarget.dataset)
-    console.log(this.data)
     
     fetch(`/rounds/${roundId}/vote`, {
       method: "POST",
@@ -26,12 +22,18 @@ export default class extends Controller {
   }
 
   receiveVote(data) {
-    console.log("asdasdasdqweqwe")
-    console.log(data)
     const { user_id, value } = data;
-
-    let voteElement = document.querySelector(`[data-voting-target="results"]`).textContent = `Usuário ${user_id}: ${value}`;
-
+  
     console.log("Received vote:", user_id, value);
+  
+    const userElement = document.querySelector(`[data-user-id="user-${user_id}"]`)?.firstElementChild;
+  
+    if (userElement) {
+      userElement.classList.remove("bg-blue-500");
+      userElement.classList.add("bg-green-500");
+    } else {
+      console.warn(`User with ID ${user_id} not found`);
+    }
   }
+  
 }

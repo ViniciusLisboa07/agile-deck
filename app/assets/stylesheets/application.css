@@ -8,3 +8,13 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+ .voted {
+    background-color: #4caf50; /* Verde claro */
+    color: white; /* Texto branco */
+}
+  
+.voted .card {
+    background-color: #2e7d32; /* Verde escuro */
+    color: white;
+}

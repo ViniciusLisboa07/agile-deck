@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :rooms, foreign_key: "user_id", dependent: :destroy
   has_many :room_users, dependent: :destroy
+  has_many :votes, dependent: :destroy
   has_many :participated_rooms, through: :room_users, source: :room
 
   def anonymous?
@@ -12,6 +13,10 @@ class User < ApplicationRecord
 
   def self.create_anonymous_user
     create(anonymous: true, email: generate_unique_email, password: SecureRandom.hex)
+  end
+
+  def voted?(round)
+    votes.exists?(round_id: round.id)
   end
 
   private

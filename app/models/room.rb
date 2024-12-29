@@ -7,6 +7,7 @@ class Room < ApplicationRecord
   has_many :users, through: :room_users
 
   has_many :rounds, dependent: :destroy
+  has_many :votes, through: :rounds
 
   validates :name, presence: true, uniqueness: true
   validates :creator, presence: true
