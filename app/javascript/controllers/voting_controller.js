@@ -8,9 +8,18 @@ export default class extends Controller {
   }
 
   selectCard(event) {
+    console.log("Card selected", event.currentTarget.dataset.card);
     const cardValue = event.currentTarget.dataset.card;
     const roundId = event.currentTarget.dataset.roundId;
-    
+  
+    const allCards = this.element.querySelectorAll(".btn.card");
+    console.log(allCards);
+    allCards.forEach((card) => {
+      card.classList.add("disabled");
+    });
+  
+    event.currentTarget.classList.remove("disabled");
+  
     fetch(`/rounds/${roundId}/vote`, {
       method: "POST",
       headers: {

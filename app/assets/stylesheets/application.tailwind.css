@@ -8,12 +8,10 @@
   }
 }
 
-.voted {
-   background-color: #4caf50; /* Verde claro */
-   color: white; /* Texto branco */
+.btn.card.disabled {
+  opacity: 0.5; 
 }
- 
-.voted .card {
-   background-color: #2e7d32; /* Verde escuro */
-   color: white;
+
+.btn.card:not(.disabled):hover {
+  background-color: #e5e5e5;
 }

@@ -19,6 +19,10 @@ class User < ApplicationRecord
     votes.exists?(round_id: round.id)
   end
 
+  def voted_for?(round, option)
+    votes.exists?(round_id: round.id, value: option)
+  end
+
   private
 
   def self.generate_unique_email
