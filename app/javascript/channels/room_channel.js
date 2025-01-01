@@ -17,15 +17,25 @@ if (roomId) {
       },
       received(data) {
         console.log("Received data:", data);
+        
         const roomElement = document.querySelector("[data-controller='voting']");
         const controller = application.controllers.find(ctrl => ctrl.element === roomElement);
-      
+        
         if (controller) {
-          controller.receiveVote(data);
+          switch (data.action) {
+            case "vote":
+              controller.handleVote(data);
+              break;
+            case "reveal_votes":
+              controller.handleRevealVotes(data);
+              break;
+            default:
+              console.warn("Ação não reconhecida:", data.action);
+          }
         } else {
           console.error("Controlador não encontrado para o elemento:", roomElement);
         }
-      },
+      }
     }
   );
 } else {

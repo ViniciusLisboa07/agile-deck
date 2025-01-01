@@ -22,5 +22,6 @@ Rails.application.routes.draw do
 
   resources :rounds do
     resources :vote, only: [ :create ]
+    post "reveal_votes", to: "vote#reveal_votes", as: :reveal_votes
   end
 end

@@ -8,6 +8,7 @@ class VoteController < ApplicationController
 
     if @vote.save
       RoomChannel.broadcast_to(@room, {
+        action: "vote",
         user_id: current_user.id,
         value: @vote.value
       })
@@ -15,6 +16,23 @@ class VoteController < ApplicationController
     else
       head :unprocessable_entity
     end
+  end
+
+  def reveal_votes
+    votes = @round.votes.includes(:user).map do |vote|
+      {
+        user_id: vote.user.id,
+        user_name: vote.user.name || vote.user.email,
+        value: vote.value
+      }
+    end
+
+    RoomChannel.broadcast_to(@room, {
+      action: "reveal_votes",
+      votes: votes
+    })
+
+    head :ok
   end
 
   private
