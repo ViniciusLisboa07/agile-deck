@@ -18,6 +18,10 @@ class Room < ApplicationRecord
     self.deck = Deck.new(deck_params)
   end
 
+  def current_round
+    rounds.last
+  end
+
   private
 
   def generate_unique_code
