@@ -48,9 +48,7 @@
     </div>
   </div>
 
-  <!-- Main Content -->
   <main class="flex-grow container mx-auto py-12 px-6">
-    <!-- Minhas Salas -->
     <section class="mb-12">
       <h2 class="text-2xl font-bold mb-4">Minhas Salas</h2>
       <% if @rooms.any? %>
@@ -59,7 +57,7 @@
             <li class="p-4 bg-white shadow-md rounded-lg">
               <h3 class="text-lg font-semibold text-blue-600"><%= room.name %></h3>
               <p class="text-gray-600">Criada em: <%= room.created_at.strftime("%d/%m/%Y") %></p>
-              <%= link_to "Entrar", room_path(room), class: "btn btn-sm btn-primary mt-4" %>
+              <%= link_to "Entrar", show_by_code_path(room.code), class: "btn btn-sm btn-primary mt-4" %>
             </li>
           <% end %>
         </ul>
