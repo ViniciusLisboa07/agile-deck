@@ -44,6 +44,16 @@ class RoomsController < ApplicationController
     end
   end
 
+  def new_round
+    room = Room.find(params[:room_id])
+    room.rounds.last.update(status: "finished") if room.rounds.last
+    room.rounds.create(status: "waiting")
+    @round = room.rounds.last
+
+    # RoomChannel.broadcast_to(room, { action: "new_round", round: @round })
+    head :ok
+  end
+
   private
 
   def room_params

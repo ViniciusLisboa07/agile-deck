@@ -71,6 +71,7 @@ export default class extends Controller {
       } else {
         clearInterval(interval);
         this.showVotes(votes);
+        this.replaceRevealButtonWithNewRoundButton();
       }
     }, 1000);
   }
@@ -86,4 +87,42 @@ export default class extends Controller {
       voteValue.textContent = `${value}`;
     });
   }
+  
+  replaceRevealButtonWithNewRoundButton() {
+    const revealVotesButton = document.querySelector('#reveal-votes-button');
+    const newRoundButton = document.querySelector('#new-round-button');
+
+    revealVotesButton.classList.add("hidden");
+    newRoundButton.classList.remove("hidden");
+  }
+
+  startNewRound() {
+    const roomId = this.element.dataset.roomId;
+    fetch(`/rooms/${roomId}/new_round`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+      },
+    }).then((response) => {
+      if (response.ok) {
+        // const newRoundButton = document.querySelector('#new-round-button');3
+        // const revealVotesButton = document.querySelector('#reveal-votes-button');
+
+        // newRoundButton.classList.add("hidden");
+        // revealVotesButton.classList.remove("hidden");
+        // 
+        location.reload();
+      } else {
+        console.error("Failed to create a new round");
+      }
+    });
+  }
+
+  // handleNewRound(round) {
+  //   console.log("Handling new round:", round);
+
+  //   console.log(this.element)
+  //   this.element.dataset.roundId = round.id;
+  // }
 }

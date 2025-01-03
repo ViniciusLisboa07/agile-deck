@@ -29,6 +29,9 @@ if (roomId) {
             case "reveal_votes":
               controller.handleRevealVotes(data);
               break;
+            case "new_round":
+              controller.handleNewRound(data.round);
+              break;
             default:
               console.warn("Ação não reconhecida:", data.action);
           }

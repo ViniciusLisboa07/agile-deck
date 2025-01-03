@@ -25,10 +25,12 @@
     </section>
   </main>
   
-  <div class="flex justify-center gap-4" data-controller="voting">
-      <button 
-        class="btn btn-md  btn-primary" data-action="click->voting#revealVotes" data-round-id="<%= @round.id %>">
-            Revelar Votos
+  <div class="flex justify-center gap-4" data-controller="voting" data-round-id="<%= @round.id %>" data-room-id="<%= @room.id %>">
+      <button id="reveal-votes-button" class="btn btn-md btn-primary" data-action="click->voting#revealVotes" data-round-id="<%= @round.id %>">
+        Revelar Votos
+      </button>
+      <button id="new-round-button" class="btn btn-secondary hidden" data-action="click->voting#startNewRound">
+        Novo Round
       </button>
   </div>
   

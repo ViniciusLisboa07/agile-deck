@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :rooms, only: [ :new, :create, :show ] do
     resources :decks, only: [ :new, :create, :edit, :update ], shallow: true
+    post "new_round", to: "rooms#new_round", as: :new_round
   end
 
   get "rooms/code/:code", to: "rooms#show_by_code", as: :show_by_code
