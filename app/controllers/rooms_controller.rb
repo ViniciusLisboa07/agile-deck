@@ -50,7 +50,7 @@ class RoomsController < ApplicationController
     room.rounds.create(status: "waiting")
     @round = room.rounds.last
 
-    # RoomChannel.broadcast_to(room, { action: "new_round", round: @round })
+    RoomChannel.broadcast_to(room, { action: "new_round", round: @round })
     head :ok
   end
 

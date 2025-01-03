@@ -5,7 +5,7 @@ const roomId = document.querySelector("meta[name='room-id']")?.content;
 
 console.log("Room ID:", roomId);
 
-if (roomId) {
+if (roomId && roomId != undefined) {
   consumer.subscriptions.create(
     { channel: "RoomChannel", room_id: roomId },
     {

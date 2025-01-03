@@ -1,5 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
+import confetti from "canvas-confetti";
+
 export default class extends Controller {
   static targets = ["card", "results", "countdown"];
 
@@ -59,18 +61,17 @@ export default class extends Controller {
 
   startCountdown(votes) {
     const countdownElement = document.querySelector('[data-voting-target="countdown"]');
-    console.log("------ countdown")
-    console.log(countdownElement)
     let countdown = 3;
 
-    countdownElement.textContent = `Revealing in ${countdown}...`;
+    countdownElement.textContent = `Revelando votos em ${countdown}...`;
     const interval = setInterval(() => {
       countdown -= 1;
       if (countdown > 0) {
-        countdownElement.textContent = `Revealing in ${countdown}...`;
+        countdownElement.textContent = `Revelando votos em ${countdown}...`;
       } else {
         clearInterval(interval);
         this.showVotes(votes);
+        this.launchConfetti();
         this.replaceRevealButtonWithNewRoundButton();
       }
     }, 1000);
@@ -88,10 +89,20 @@ export default class extends Controller {
     });
   }
   
+  launchConfetti() {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  }
+  
   replaceRevealButtonWithNewRoundButton() {
     const revealVotesButton = document.querySelector('#reveal-votes-button');
     const newRoundButton = document.querySelector('#new-round-button');
+    const countdownElement = document.querySelector('[data-voting-target="countdown"]');
 
+    countdownElement.classList.add("hidden");
     revealVotesButton.classList.add("hidden");
     newRoundButton.classList.remove("hidden");
   }
@@ -112,17 +123,18 @@ export default class extends Controller {
         // newRoundButton.classList.add("hidden");
         // revealVotesButton.classList.remove("hidden");
         // 
-        location.reload();
+        
       } else {
         console.error("Failed to create a new round");
       }
     });
   }
 
-  // handleNewRound(round) {
-  //   console.log("Handling new round:", round);
+  handleNewRound(round) {
+    location.reload();
+    // console.log("Handling new round:", round);
 
-  //   console.log(this.element)
-  //   this.element.dataset.roundId = round.id;
-  // }
+    // console.log(this.element)
+    // this.element.dataset.roundId = round.id;
+  }
 }

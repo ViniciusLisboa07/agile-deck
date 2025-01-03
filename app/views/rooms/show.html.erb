@@ -6,7 +6,7 @@
           class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700" %>
     <% end %>
 
-    <section class="user-list flex items-center justify-center w-full h-[500px] bg-gray-200 rounded-lg shadow-lg overflow-hidden">
+    <section class="user-list flex items-center justify-center w-[600px] h-[250px] bg-gray-200 rounded-lg shadow-lg overflow-hidden">
       <% @room.users.each_with_index do |user, index| %>
         <% random_x = rand(10..90) %>
         <% random_y = rand(10..90) %>
@@ -23,6 +23,10 @@
         </div>
       <% end %>
     </section>
+    
+    <div class="mt-4">
+      <div data-voting-target="countdown" class="text-center text-xl font-bold text-grey-400"></div>
+    </div>
   </main>
   
   <div class="flex justify-center gap-4" data-controller="voting" data-round-id="<%= @round.id %>" data-room-id="<%= @room.id %>">
@@ -55,10 +59,6 @@
                 </div>
             </div>
             <% end %>
-        </div>
-        
-        <div class="mt-4">
-          <div data-voting-target="countdown" class="text-center text-xl font-bold text-red-600"></div>
         </div>
     </section>
   </footer>
