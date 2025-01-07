@@ -6,7 +6,7 @@
           class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700" %>
     <% end %>
 
-    <section class="user-list flex items-center justify-center w-[600px] h-[250px] bg-gray-200 rounded-lg shadow-lg overflow-hidden">
+    <div class="user-list flex items-center justify-center w-[600px] h-[250px] bg-gray-200 rounded-lg shadow-lg overflow-hidden py-6">
       <% @room.users.each_with_index do |user, index| %>
         <% random_x = rand(10..90) %>
         <% random_y = rand(10..90) %>
@@ -22,44 +22,43 @@
           <p class="text-xs font-medium text-gray-800"><%= user.name || user.email %></p>
         </div>
       <% end %>
-    </section>
+    </div>
     
     <div class="mt-4">
       <div data-voting-target="countdown" class="text-center text-xl font-bold text-grey-400"></div>
     </div>
+    
+    <div class="flex justify-center gap-4 py-6" data-controller="voting" data-round-id="<%= @round.id %>" data-room-id="<%= @room.id %>">
+        <button id="reveal-votes-button" class="btn btn-md btn-primary" data-action="click->voting#revealVotes" data-round-id="<%= @round.id %>">
+          Revelar Votos
+        </button>
+        <button id="new-round-button" class="btn btn-primary hidden" data-action="click->voting#startNewRound">
+          Novo Round
+        </button>
+    </div>
+    
+    <div class="w-full bg-gray-100 py-6">
+      <meta name="room-id" content="<%= @room.id %>">
+      <section 
+          data-controller="voting" 
+          data-room-id="<%= @room.id %>"
+      >
+          <div class="flex justify-center gap-4">
+            <% @room.deck.cards_as_array.each do |card| %>
+              <% disabled = !current_user.voted_for?(@round, card) %>
+              <div 
+                  class="btn card bg-base-100 rounded-lg p-4 shadow-xl cursor-pointer <%= 'disabled' if disabled %>"
+                  data-card="<%= card %>"
+                  data-round-id="<%= @round.id %>"
+                  data-action="click->voting#selectCard"
+              >
+                  <div class="card-body">
+                  <h1 class="font-bold text-blue-600 text-center"><%= card %></h1>
+                  </div>
+              </div>
+              <% end %>
+          </div>
+      </section>
+    </div>
   </main>
-  
-  <div class="flex justify-center gap-4" data-controller="voting" data-round-id="<%= @round.id %>" data-room-id="<%= @room.id %>">
-      <button id="reveal-votes-button" class="btn btn-md btn-primary" data-action="click->voting#revealVotes" data-round-id="<%= @round.id %>">
-        Revelar Votos
-      </button>
-      <button id="new-round-button" class="btn btn-secondary hidden" data-action="click->voting#startNewRound">
-        Novo Round
-      </button>
-  </div>
-  
-  <footer class="w-full bg-gray-100 py-6">
-    <meta name="room-id" content="<%= @room.id %>">
-
-    <section 
-        data-controller="voting" 
-        data-room-id="<%= @room.id %>"
-    >
-        <div class="flex justify-center gap-4">
-          <% @room.deck.cards_as_array.each do |card| %>
-            <% disabled = !current_user.voted_for?(@round, card) %>
-            <div 
-                class="btn card bg-base-100 rounded-lg p-4 shadow-xl cursor-pointer <%= 'disabled' if disabled %>"
-                data-card="<%= card %>"
-                data-round-id="<%= @round.id %>"
-                data-action="click->voting#selectCard"
-            >
-                <div class="card-body">
-                <h1 class="font-bold text-blue-600 text-center"><%= card %></h1>
-                </div>
-            </div>
-            <% end %>
-        </div>
-    </section>
-  </footer>
 </div>
