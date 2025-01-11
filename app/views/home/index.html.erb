@@ -35,39 +35,45 @@
   <!-- Hero Section -->
   <div class="hero bg-base-200 min-h-screen">
     <div class="hero-content flex-col lg:flex-row">
-      <div class="overflow-x-auto">
-        <h2 class="text-2xl font-bold mb-4">Minhas Salas</h2>
-        <% if @rooms.any? %>
-            <table class="table table-zebra table-sm">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% @rooms.each do |room| %>
-                        <tr>
-                            <td>
-                                <h3><%= room.name %></h3>
-                            </td>
-                            <td>
-                                <%= link_to "Entrar", show_by_code_path(room.code), class: "btn btn-ghost btn-xs" %>
-                            </td>
-                        </tr>
-                    <% end %>
-                </tbody>
-            </table>
-        <% else %>
-            <p class="text-gray-700">Você ainda não tem nenhuma sala. <%= link_to "Crie uma agora", new_room_path, class: "text-blue-500 underline" %>.</p>
-        <% end %>
-      </div>
-      <div>
-        <h1 class="text-5xl font-bold">Agile Deck!</h1>
-        <p class="py-6">
-          Monte salas, vote suas estimativas e simplifique o planejamento da sua equipe.
-        </p>
-        <%= link_to "Criar Nova Sala", new_room_path, class: "btn btn-primary text-lg font-semibold" %>
+        <div class="h-96 card w-96 bg-base-100 shadow-xl">
+            <div class="card-body items-center text-center">
+                <h2 class="card-title text-1xl mb-2">Minhas Salas</h2>
+                <% if @rooms.any? %>
+                    <table class="table table-zebra table-sm table-pin-rows overflow-x-auto">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @rooms.each_with_index do |room, index| %>
+                                <tr class="hover">
+                                    <td>
+                                        <h3><%= index + 1 %></h3>
+                                    </td>
+                                    <td>
+                                        <h3><%= room.name %></h3>
+                                    </td>
+                                    <td>
+                                        <%= link_to "Entrar", show_by_code_path(room.code), class: "btn btn-ghost btn-xs" %>
+                                    </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                <% else %>
+                    <p class="text-gray-700">Você ainda não tem nenhuma sala. <%= link_to "Crie uma agora", new_room_path, class: "text-blue-500 underline" %>.</p>
+                <% end %>
+            </div>
+        </div>
+        <div>
+            <h1 class="text-5xl font-bold">Agile Deck!</h1>
+            <p class="py-6">
+            Monte salas, vote suas estimativas e simplifique o planejamento da sua equipe.
+            </p>
+            <%= link_to "Criar Nova Sala", new_room_path, class: "btn btn-primary text-lg font-semibold" %>
       </div>
     </div>
   </div>
