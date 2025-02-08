@@ -11,10 +11,10 @@ class RoomsController < ApplicationController
 
   def create
     @room = current_user.rooms.new(room_params)
-    @round = @room.rounds.create(status: "waiting")
 
     if @room.save
-      redirect_to room_path(@room)
+      @round = @room.rounds.create(status: "waiting")
+      redirect_to show_by_code_path(@room.code)
     else
       render json: @room.errors, status: :unprocessable_entity
     end
