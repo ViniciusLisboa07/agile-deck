@@ -35,7 +35,7 @@ RUN bundle install
 COPY . ./
 
 # Precompilar assets para produção (opcional)
-RUN bundle exec rails assets:precompile
+# RUN bundle exec rails assets:precompile
 
 # Expor a porta para o servidor Rails
 EXPOSE 3000
