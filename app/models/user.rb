@@ -11,8 +11,8 @@ class User < ApplicationRecord
     self.anonymous
   end
 
-  def self.create_anonymous_user
-    create(anonymous: true, email: generate_unique_email, password: SecureRandom.hex)
+  def self.create_anonymous_user(name)
+    create(name: name, anonymous: true, email: generate_unique_email, password: SecureRandom.hex)
   end
 
   def voted?(round)
