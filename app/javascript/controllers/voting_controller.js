@@ -137,4 +137,27 @@ export default class extends Controller {
     // console.log(this.element)
     // this.element.dataset.roundId = round.id;
   }
+
+  handleNewUser(user) {
+    const userListContainer = document.querySelector(".user-list");
+    if (!userListContainer) return;
+  
+    const randomX = Math.floor(Math.random() * (90 - 10 + 1)) + 10;
+    const randomY = Math.floor(Math.random() * (90 - 10 + 1)) + 10;
+  
+    const userElement = document.createElement("div");
+    userElement.setAttribute("data-user-id", `user-${user.id}`);
+    userElement.className = "flex flex-col items-center text-center transition-transform duration-500 p-4";
+    userElement.style.top = `${randomY}%`;
+    userElement.style.left = `${randomX}%`;
+  
+    userElement.innerHTML = `
+      <div class="card w-16 h-24 bg-blue-500 text-white items-center text-center justify-center rounded-lg p-4 shadow-xl">
+        <p class="text-lg font-bold" id="vote-value-${user.name}">?</p>
+      </div>
+      <p class="text-xs font-medium text-gray-800">${user.name}</p>
+    `;
+  
+    userListContainer.appendChild(userElement);
+  }
 }

@@ -32,6 +32,9 @@ if (roomId && roomId != undefined) {
             case "new_round":
               controller.handleNewRound(data.round);
               break;
+            case "user_joined":
+              controller.handleNewUser(data.user);
+              break;
             default:
               console.warn("Ação não reconhecida:", data.action);
           }
