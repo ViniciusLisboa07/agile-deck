@@ -1,24 +1,84 @@
-# README
+# Agile Deck 🃏
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Agile Deck é uma aplicação de **Planning Poker** colaborativo, onde equipes podem criar salas, votar em estimativas e revelar os votos simultaneamente.
 
-Things you may want to cover:
+## Tecnologias Utilizadas
 
-* Ruby version
+- **Ruby on Rails 8** (Turbo com Hotwire e Stimulus)
+- **PostgreSQL** (Banco de dados)
+- **Stimulus.js** (Gerenciamento da interface)
+- **Importmap** (Para gestão de dependências frontend)
+- **Tailwind CSS** (Estilização)
+- **WebSockets (ActionCable)** (Para atualização em tempo real)
+- **Docker** (Ambiente de desenvolvimento conteinerizado)
 
-* System dependencies
+## Funcionalidades
 
-* Configuration
+- **Criação de salas** de votação em tempo real.
+- **Usuários podem votar** e ver o status dos votos.
+- **Indicação visual** de quem já votou.
+- **Revelação dos votos** para todos os participantes após uma contagem regressiva.
+- **Efeito de confetes** ao revelar os votos.
+- **Botão para iniciar um novo round**, sem precisar atualizar a página.
 
-* Database creation
+## Instalação e Configuração
 
-* Database initialization
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/agile-deck.git
+   cd agile-deck
+   ```
 
-* How to run the test suite
+2. Instale as dependências:
+   ```bash
+   bundle install
+   bin/rails importmap:install # Caso precise configurar o Importmap
+   ```
 
-* Services (job queues, cache servers, search engines, etc.)
+3. Configure o banco de dados:
+   ```bash
+   bin/rails db:create db:migrate db:seed
+   ```
 
-* Deployment instructions
+4. Inicie o servidor:
+   ```bash
+   bin/dev
+   ```
 
-* ...
+5. Abra no navegador:
+   ```
+   http://localhost:3000
+   ```
+
+## Uso
+
+1. Acesse a página inicial e crie uma nova sala.
+2. Compartilhe o link da sala com os participantes.
+3. Cada participante seleciona um cartão para votar.
+4. Quando todos tiverem votado, clique em "Revelar Votos".
+5. Após a revelação, inicie um novo round para recomeçar a votação.
+
+
+## Contribuição
+
+Contribuições são bem-vindas! Para contribuir:
+
+1. Fork o repositório.
+2. Crie uma branch:
+   ```bash
+   git checkout -b minha-feature
+   ```
+3. Faça suas alterações e commit:
+   ```bash
+   git commit -m "Minha contribuição"
+   ```
+4. Envie sua branch:
+   ```bash
+   git push origin minha-feature
+   ```
+5. Abra um Pull Request no GitHub.
+
+## Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
