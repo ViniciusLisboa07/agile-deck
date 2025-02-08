@@ -5,7 +5,7 @@
     <%= link_to 'Logar com Conta', new_user_session_path, 
                 class: "bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-700 w-64 text-center" %>
 
-    <%= button_to 'Continuar como Anônimo', anonymous_login_path, method: :post, 
+    <%= link_to 'Continuar como Anônimo', new_anonymous_path, method: :post, 
                    class: "bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-700 w-64 text-center" %>
   </div>
 </div>

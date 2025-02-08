@@ -1,0 +1,27 @@
+<div class="flex justify-center items-center min-h-screen">
+    <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card-body items-center text-center">
+            <div class="items-left">
+                <h2 class="card-title text-2xl font-bold mb-6">Login Anonimo</h2>
+                <div class="form-control mt-6">
+                    <label class="label">
+                        <span class="label-text">Seu nome de exibição</span>
+                    </label>
+                    <input type="text" placeholder="Digite seu nome" class="input input-bordered w-full max-w-xs" id="name" name="name" required>
+                    <form action="/anonymous_login" method="post">
+                        <input type="hidden" id="hidden_name" name="name">
+                        <button type="submit" class="btn btn-primary mt-4">Login Anônimo</button>
+                    </form>
+                    <script>
+                        document.querySelector('form').addEventListener('submit', function(event) {
+                            document.getElementById('hidden_name').value = document.getElementById('name').value;
+                        });
+                    </script>
+                    
+                </div>
+            </div>
+            <div class="text-center">
+            </div>
+        </div>
+    </div>
+</div>
