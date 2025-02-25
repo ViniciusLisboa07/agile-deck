@@ -22,7 +22,7 @@ Agile Deck é uma aplicação de **Planning Poker** colaborativo, onde equipes p
 - **Botão para iniciar um novo round**, sem precisar atualizar a página.
 
 ## Demo
-[![Nome do vídeo](https://img.youtube.com/vi/m6lqXhdHLDA/maxresdefault.jpg)](https://www.youtube.com/watch?v=m6lqXhdHLDA)
+![Demo](https://github.com/ViniciusLisboa07/agile-deck/blob/main/2025-02-2423-25-22-ezgif.com-video-to-gif-converter.gif)
 
 ## Instalação e Configuração
 
