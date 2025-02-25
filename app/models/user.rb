@@ -23,6 +23,10 @@ class User < ApplicationRecord
     votes.exists?(round_id: round.id, value: option)
   end
 
+  def leave_room(room)
+    room_users.find_by(room: room)&.destroy
+  end
+
   private
 
   def self.generate_unique_email

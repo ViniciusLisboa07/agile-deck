@@ -63,6 +63,22 @@ class RoomsController < ApplicationController
     head :ok
   end
 
+  def disconnect_user
+    @room = Room.find(params[:room_id])
+    @room_user = @room.room_users.find_by(user: current_user)
+    if @room_user
+      @room_user.destroy
+      RoomChannel.broadcast_to(@room, {
+        action: "user_left",
+        user: {
+          id: current_user.id,
+          name: current_user.name || current_user.email
+        }
+      })
+    end
+    head :ok
+  end
+
   private
 
   def room_params

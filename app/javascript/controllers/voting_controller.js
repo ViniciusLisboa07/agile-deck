@@ -7,6 +7,12 @@ export default class extends Controller {
 
   connect() {
     console.log("VotingController connected", this.element);
+    window.addEventListener("beforeunload", this.disconnectUser.bind(this));
+  }
+
+  disconnectUser(event) {
+    const roomId = this.element.dataset.roomId;
+    navigator.sendBeacon(`/rooms/${roomId}/disconnect_user`);
   }
 
   selectCard(event) {

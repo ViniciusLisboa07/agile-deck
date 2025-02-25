@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   resources :rooms, only: [ :new, :create, :show ] do
     resources :decks, only: [ :new, :create, :edit, :update ], shallow: true
     post "new_round", to: "rooms#new_round", as: :new_round
+    post "leave", to: "rooms#leave", as: :leave
+    post "disconnect_user", to: "rooms#disconnect_user", as: :disconnect_user
   end
 
   get "rooms/code/:code", to: "rooms#show_by_code", as: :show_by_code
