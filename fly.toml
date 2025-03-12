@@ -24,4 +24,4 @@ console_command = '/rails/bin/rails console'
   memory_mb = 256
 
 [deploy]
-  release_command = "bin/rails db:migrate && bin/rails assets:precompile"
+  release_command = "bin/rails db:migrate && bin/rails tailwindcss:build && bin/rails assets:precompile"
