@@ -22,3 +22,6 @@ console_command = '/rails/bin/rails console'
   cpu_kind = 'shared'
   cpus = 1
   memory_mb = 256
+
+[deploy]
+  release_command = "bin/rails db:migrate && bin/rails assets:precompile"
